@@ -21,7 +21,16 @@ namespace ecommerce.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var ListBrands = _ApplicationDbContext.Brands.Where(x => x.IsDelete == false)
+                .Select(x=> new BrandsVm()
+                {
+                    Id = x.Id,
+                    Name = x.BrnadName,
+                    CreateDate = x.CreateDate
+
+                })
+                .ToList();
+            return View(ListBrands);
         }
 
         public IActionResult Create()
