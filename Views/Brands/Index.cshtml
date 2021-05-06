@@ -7,48 +7,51 @@
 
 }
 
-<div class="card">
-    <div class="card-header">
-        <h3 class="card-title">DataTable with default features</h3>
+<div class="row mb-5 mt-5">
+    <div class="container">
+        <div class="alert alert-primary">
+            <a href="/brands/create">Create</a>
+        </div>
+        
     </div>
-    <!-- /.card-header -->
-    <div class="card-body">
-        <table id="example1" class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Trident</td>
-                    <td>
-                        Internet
-                        Explorer 4.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
-                    <td>X</td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
-    <!-- /.card-body -->
 </div>
-<!-- /.card -->
+<div class="row mb-5">
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Brands Table</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Logo</th>
+                    <th>Brand</th>
+                    <th>Operations</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>ID</th>
+                    <th>Logo</th>
+                    <th>Brand</th>
+                    <th>Operations</th>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th>Count : [Counter]</th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</div>
+</div>
 <!-- Page specific script -->
 <!-- DataTables  & Plugins -->
 <script src="~/plugins/datatables/jquery.dataTables.min.js"></script>
