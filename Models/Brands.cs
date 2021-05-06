@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ecommerce.Data.Migrations;
 
 namespace ecommerce.Models
 {
@@ -14,6 +15,7 @@ namespace ecommerce.Models
         // Dbset<Brands> Brands{get; set;}
         // Then make add migratoin CreateBrandsTable
         // and update database
+
         public string BrnadName { get; set; }
 
         public string Description { get; set; }
