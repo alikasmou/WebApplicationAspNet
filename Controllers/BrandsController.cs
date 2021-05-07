@@ -104,5 +104,15 @@ namespace ecommerce.Controllers
 
         }
 
+        public async Task<IActionResult> Trash(int id)
+        {
+
+            // get the object from database
+            var brandDb = _ApplicationDbContext.Brands.SingleOrDefault(x=> x.Id == id);
+            brandDb.IsDelete = true;
+            await _ApplicationDbContext.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
     }
 }
