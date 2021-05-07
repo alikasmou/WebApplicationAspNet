@@ -21,7 +21,7 @@ namespace ecommerce.Controllers
 
         public IActionResult Index()
         {
-            var ListBrands = _ApplicationDbContext.Brands.Where(x => x.IsDelete == false)
+            /*var ListBrands = _ApplicationDbContext.Brands.Where(x => x.IsDelete == false)
                 .Select(x=> new BrandsVm()
                 {
                     Id = x.Id,
@@ -30,7 +30,18 @@ namespace ecommerce.Controllers
 
                 })
                 .ToList();
-            return View(ListBrands);
+            */
+            var ListBrands = _ApplicationDbContext.Brands.Where(brands => brands.IsDelete == false);
+
+            var ListBrandsVm = ListBrands.Select(brand => new BrandsVm()
+            {
+                Id = brand.Id,
+                Name = brand.BrnadName,
+                CreateDate = brand.CreateDate
+            });
+
+            var SelectedRows = ListBrandsVm;
+            return View(SelectedRows);
         }
 
         public IActionResult Create()

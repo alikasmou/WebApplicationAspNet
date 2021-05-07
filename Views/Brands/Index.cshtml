@@ -1,5 +1,10 @@
 ﻿@using ecommerce.Vm;
-@model List<ecommerce.Vm.BrandsVm>;
+@model IQueryable<ecommerce.Vm.BrandsVm>;
+
+@*
+    @model IQueryable<ecommerce.Vm.BrandsVm>
+    @model List<ecommerce.Vm.BrandsVm>;*@
+
 @{
     ViewData["Title"] = "Brands";
     Layout = "~/Views/Shared/_layout.cshtml";
@@ -32,12 +37,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var brand in Model){
+                        @foreach (var brand in Model)
+                        {
                             <tr>
                                 <th>@brand.Id</th>
                                 <th>@brand.Name</th>
                                 <th>@brand.CreateDate</th>
-                                <th>Edit | Delete</th>
+                                <th>View | Edit | Delete</th>
                             </tr>
                         }
                     </tbody>
