@@ -89,5 +89,19 @@ namespace ecommerce.Controllers
             return View(brand);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Edit( BrandsVm brand)
+        {
+            //fetching the object from database
+            var brandDb = _ApplicationDbContext.Brands.SingleOrDefault(x => x.Id == brand.Id);
+            brandDb.BrnadName = brand.Name;
+            brandDb.Description = brand.Description;
+            await
+            _ApplicationDbContext.SaveChangesAsync();
+            return RedirectToAction("Index");
+
+
+        }
+
     }
 }
