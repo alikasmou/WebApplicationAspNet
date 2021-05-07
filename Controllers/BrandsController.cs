@@ -113,6 +113,46 @@ namespace ecommerce.Controllers
             await _ApplicationDbContext.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+        public IActionResult Trashed()
+        {
+
+            var ListBrands = _ApplicationDbContext.Brands.Where(brands => brands.IsDelete == true);
+
+            var ListBrandsVm = ListBrands.Select(brand => new BrandsVm()
+            {
+                Id = brand.Id,
+                Name = brand.BrnadName,
+                CreateDate = brand.CreateDate
+            });
+
+            var SelectedRows = ListBrandsVm;
+            return View(SelectedRows);
+        }
+
+        public async Task<IActionResult> Restore(int id)
+        {
+
+            // get the object from database
+            var brandDb = _ApplicationDbContext.Brands.SingleOrDefault(x => x.Id == id);
+            brandDb.IsDelete = false;
+            await _ApplicationDbContext.SaveChangesAsync();
+            return RedirectToAction("Trashed");
+        }
+
+        public async Task<IActionResult> Drop(int id)
+        {
+
+            // get the object from database
+            var brandDb = _ApplicationDbContext.Brands.SingleOrDefault(x => x.Id == id);
+
+            _ApplicationDbContext.Remove(brandDb);
+            await _ApplicationDbContext.SaveChangesAsync();
+            return RedirectToAction("Trashed");
+
+
+        }
+
+
 
     }
 }
