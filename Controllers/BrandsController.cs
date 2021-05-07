@@ -95,6 +95,7 @@ namespace ecommerce.Controllers
             //fetching the object from database
             var brandDb = _ApplicationDbContext.Brands.SingleOrDefault(x => x.Id == brand.Id);
             brandDb.BrnadName = brand.Name;
+            brandDb.LastModify = DateTime.Now;
             brandDb.Description = brand.Description;
             await
             _ApplicationDbContext.SaveChangesAsync();
