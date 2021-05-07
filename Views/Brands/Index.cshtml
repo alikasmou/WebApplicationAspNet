@@ -43,7 +43,7 @@
                                 <th>@brand.Id</th>
                                 <th>@brand.Name</th>
                                 <th>@brand.CreateDate</th>
-                                <th>View | Edit | Delete</th>
+                                <th> <a href="@Url.ActionLink("Edit","Brands", new{id = brand.Id })">Edit</a> | Delete</th>
                             </tr>
                         }
                     </tbody>

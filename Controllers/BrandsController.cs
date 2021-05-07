@@ -63,5 +63,31 @@ namespace ecommerce.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Edit(int id)
+        {
+            /*
+            var brand = _ApplicationDbContext.Brands.SingleOrDefault( brand => brand.Id == id);
+
+            OR 
+            
+            var brand = _ApplicationDbContext.Brands.FirstOrDefault(brand=> brand.Id == id);
+            
+            Notes :
+            *but if query returns more than 1 row you will get an error
+            ** in these cases function must be public IActionResult Edit()
+             * No need to async Task<>
+            
+            */
+            var brandDb = await _ApplicationDbContext.Brands.FindAsync(id);
+
+            var brand = new BrandsVm()
+            {
+                Id = brandDb.Id,
+                Name = brandDb.BrnadName,
+                Description = brandDb.Description
+            };
+            return View(brand);
+        }
+
     }
 }

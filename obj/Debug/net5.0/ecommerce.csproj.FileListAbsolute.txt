@@ -161,3 +161,4 @@ C:\Users\alikasmou\Desktop\Code\ecommerce\ecommerce\bin\Debug\net5.0\runtimes\wi
 C:\Users\alikasmou\Desktop\Code\ecommerce\ecommerce\obj\Debug\net5.0\Razor\Views\Login\Index.cshtml.g.cs
 C:\Users\alikasmou\Desktop\Code\ecommerce\ecommerce\obj\Debug\net5.0\Razor\Views\Brands\Index.cshtml.g.cs
 C:\Users\alikasmou\Desktop\Code\ecommerce\ecommerce\obj\Debug\net5.0\Razor\Views\Brands\Create.cshtml.g.cs
+C:\Users\alikasmou\Desktop\Code\ecommerce\ecommerce\obj\Debug\net5.0\Razor\Views\Brands\Edit.cshtml.g.cs

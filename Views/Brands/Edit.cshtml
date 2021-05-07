@@ -1,14 +1,9 @@
-﻿@using ecommerce.Vm;
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model ecommerce.Vm.BrandsVm;
 @{
 
- ViewData["Title"] = "Create Brand";
- Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Create Brand";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-@model ecommerce.Vm.BrandsVm;
 <div class="row mb-5 mt-5">
     <div class="container">
         <div class="alert alert-primary">
@@ -29,7 +24,7 @@
                 <!-- form start -->
                 <form method="post" action="@Url.ActionLink("Create","Brands")" enctype="multipart/form-data">
                     <div class="card-body">
-                        <input asp-for="Id" type="hidden"/>
+                        <input asp-for="Id" type="hidden" />
                         <div class="form-group">
                             <label for="BrandName">Brand Name</label>
                             <input asp-for="Name" type="text" class="form-control" id="BrandName" placeholder="Write brand name here" required>
