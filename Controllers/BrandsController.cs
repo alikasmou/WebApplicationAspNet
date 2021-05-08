@@ -33,8 +33,6 @@ namespace ecommerce.Controllers
             _hostingEnvironment = hostingEnvironment;
         }
 
-        
-
         /*
          *
          *
@@ -85,8 +83,6 @@ namespace ecommerce.Controllers
         public async Task<IActionResult> Create( BrandsVm brands, IFormFile file)
         {
             // upload function
-
-
 
             var NewBrand = new Brands()
             {
@@ -149,27 +145,7 @@ namespace ecommerce.Controllers
         {
 
 
-            //==================================================================================================
-            /*if (file.Length > 0)
-            {
-                var ImgId = "logo_" + brands.Name;
-                // using file upload constructor
-                var Uploads = Path.Combine(_hostingEnvironment.WebRootPath, $"uploads/img/{ImgId}");
-                //var Uploads = Path.GetTempPath();
-                // I wanna ask teacher how to print the value to check it
-                using (var Stream = System.IO.File.Create(Uploads))
-                {
-                    await file.CopyToAsync(Stream);
-                }
-
-                // add ImgId to the Brand Object
-                NewBrand.ImageId = ImgId.ToString();
-
-            }
-            */
-            //==================================================================================================
-
-
+            // I wanna ask teacher how to print the value to check it
             //fetching the object from database
             var brandDb = _ApplicationDbContext.Brands.SingleOrDefault(x => x.Id == brand.Id);
 
@@ -181,7 +157,7 @@ namespace ecommerce.Controllers
             }
             else
             {
-                Img = "Updated_"+Img + ".png";
+                Img = "Updated_"+Img;
                 MoveFile = true;
             }
 
