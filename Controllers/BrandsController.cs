@@ -96,9 +96,9 @@ namespace ecommerce.Controllers
 
             if (file.Length > 0)
             {
-                var ImgId = Guid.NewGuid();
+                var ImgId = "logo_"+brands.Name;
                 // using file upload constructor
-                var Uploads = Path.Combine(_hostingEnvironment.WebRootPath, $"uploads/img/{ImgId}");
+                var Uploads = Path.Combine(_hostingEnvironment.WebRootPath, $"uploads/img/{ImgId}.png");
                 //var Uploads = Path.GetTempPath();
                 // I wanna ask teacher how to print the value to check it
                 using ( var Stream = System.IO.File.Create(Uploads))
@@ -138,16 +138,80 @@ namespace ecommerce.Controllers
             {
                 Id = brandDb.Id,
                 Name = brandDb.BrnadName,
-                Description = brandDb.Description
+                Description = brandDb.Description,
+                ImageId = brandDb.ImageId
             };
             return View(brand);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit( BrandsVm brand)
+        public async Task<IActionResult> Edit( BrandsVm brand, IFormFile file )
         {
+
+
+            //==================================================================================================
+            /*if (file.Length > 0)
+            {
+                var ImgId = "logo_" + brands.Name;
+                // using file upload constructor
+                var Uploads = Path.Combine(_hostingEnvironment.WebRootPath, $"uploads/img/{ImgId}");
+                //var Uploads = Path.GetTempPath();
+                // I wanna ask teacher how to print the value to check it
+                using (var Stream = System.IO.File.Create(Uploads))
+                {
+                    await file.CopyToAsync(Stream);
+                }
+
+                // add ImgId to the Brand Object
+                NewBrand.ImageId = ImgId.ToString();
+
+            }
+            */
+            //==================================================================================================
+
+
             //fetching the object from database
             var brandDb = _ApplicationDbContext.Brands.SingleOrDefault(x => x.Id == brand.Id);
+
+            bool MoveFile = false;
+            var Img = brandDb.ImageId;
+            if (String.IsNullOrEmpty(Img))
+            {
+                Img = "logo_" + brand.Name + ".png";
+            }
+            else
+            {
+                Img = "Updated_"+Img + ".png";
+                MoveFile = true;
+            }
+
+            // Moving old img to trash to solve file existed error
+            // Resource https://docs.microsoft.com/en-us/dotnet/api/system.io.file.move?view=net-5.0
+            /* ERROR
+            if (MoveFile)
+            {
+                var OldImagePath = "wwwroot/uploads/img/" + Img;
+                var SrcPath = OldImagePath.ToString();
+                var TrashPath = "wwwroot/trash/";
+                var DestPath = TrashPath.ToString();
+                System.IO.File.Move(SrcPath, DestPath, true);
+            }
+            */
+
+            if (file.Length > 0 )
+            {
+                
+                var Uploads = Path.Combine(_hostingEnvironment.WebRootPath,$"uploads/img/{Img}.png");
+                using ( var Stream = System.IO.File.Create(Uploads))
+                {
+                    await file.CopyToAsync(Stream);
+                }
+
+                brandDb.ImageId = Img.ToString();
+            }
+
+            
+
             brandDb.BrnadName = brand.Name;
             brandDb.LastModify = DateTime.Now;
             brandDb.Description = brand.Description;
