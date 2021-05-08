@@ -1,12 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using ecommerce.Data;
 using ecommerce.Models;
 using ecommerce.Vm;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting.Internal;
+using System.IO;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.Extensions.Hosting;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace ecommerce.Controllers
 {
@@ -14,11 +22,32 @@ namespace ecommerce.Controllers
     {
         public ApplicationDbContext _ApplicationDbContext { get; set; }
 
-        public BrandsController( ApplicationDbContext DbContext)
+        // this variable for uploading function
+        private readonly IHostingEnvironment _hostingEnvironment;
+
+        public BrandsController( ApplicationDbContext DbContext, IHostingEnvironment hostingEnvironment)
         {
             _ApplicationDbContext = DbContext;
+
+            // uploading function constructor
+            _hostingEnvironment = hostingEnvironment;
         }
 
+        
+
+        /*
+         *
+         *
+            // Prepare File Upload Constructor
+            private readonly IWebHostEnvironment _webHostEnvironment;
+            public BrandsController( IWebHostEnvironment webHostEnvironment)
+            {
+                _webHostEnvironment = webHostEnvironment;
+            }
+            // End of file upload constructor 
+         *
+         *
+         */
         public IActionResult Index()
         {
             /*var ListBrands = _ApplicationDbContext.Brands.Where(x => x.IsDelete == false)
@@ -37,7 +66,8 @@ namespace ecommerce.Controllers
             {
                 Id = brand.Id,
                 Name = brand.BrnadName,
-                CreateDate = brand.CreateDate
+                CreateDate = brand.CreateDate,
+                ImageId = brand.ImageId
             });
 
             var SelectedRows = ListBrandsVm;
@@ -49,18 +79,42 @@ namespace ecommerce.Controllers
             return View();
         }
 
+
+
         [HttpPost]
         public async Task<IActionResult> Create( BrandsVm brands, IFormFile file)
         {
+            // upload function
+
+
 
             var NewBrand = new Brands()
             {
                 BrnadName = brands.Name,
                 Description = brands.Description
             };
+
+            if (file.Length > 0)
+            {
+                var ImgId = Guid.NewGuid();
+                // using file upload constructor
+                var Uploads = Path.Combine(_hostingEnvironment.WebRootPath, $"uploads/img/{ImgId}");
+                //var Uploads = Path.GetTempPath();
+                // I wanna ask teacher how to print the value to check it
+                using ( var Stream = System.IO.File.Create(Uploads))
+                {
+                    await file.CopyToAsync(Stream);
+                }
+
+                // add ImgId to the Brand Object
+                NewBrand.ImageId = ImgId.ToString();
+
+            }
+            
+            // insert into database
             await _ApplicationDbContext.Brands.AddAsync(NewBrand);
             await _ApplicationDbContext.SaveChangesAsync();
-            return View();
+            return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Edit(int id)

@@ -30,6 +30,7 @@
                 <table id="Brands" class="table table-bordered table-striped">
                     <thead>
                         <tr>
+                            <th>Logo</th>
                             <th>ID</th>
                             <th>Brand</th>
                             <th>Created at</th>
@@ -39,13 +40,23 @@
                     <tbody>
                         @foreach (var brand in Model)
                         {
+                            var Image = "";
+                            @if (string.IsNullOrEmpty(brand.ImageId))
+                            {
+                                Image = "test.png";
+                            }
+                            else
+                            {
+                                Image = brand.ImageId + ".png";
+                            }
                             <tr>
+                                <th><img width="75px" height="75px" src="~/uploads/img/@Image" alt="@brand.Name" class="img-circle elevation-2" /></th>
                                 <th>@brand.Id</th>
                                 <th>@brand.Name</th>
                                 <th>@brand.CreateDate</th>
                                 <th>
                                     <a href="@Url.ActionLink("Edit", "Brands", new {id = brand.Id})">Edit</a> |
-                                    <a class="text-danger" href="@Url.ActionLink("Trash","Brands", new {id = brand.Id})">Delete</a>
+                                    <a class="text-danger" href="@Url.ActionLink("Trash", "Brands", new {id = brand.Id})">Delete</a>
                                 </th>
                             </tr>
                         }
