@@ -157,22 +157,25 @@ namespace ecommerce.Controllers
             }
             else
             {
-                Img = "Updated_"+Img;
+                //Img = "Updated_"+Img;
                 MoveFile = true;
             }
 
             // Moving old img to trash to solve file existed error
             // Resource https://docs.microsoft.com/en-us/dotnet/api/system.io.file.move?view=net-5.0
-            /* ERROR
+            
             if (MoveFile)
             {
-                var OldImagePath = "wwwroot/uploads/img/" + Img;
+                var OldImagePath = "wwwroot/uploads/img/" + Img +".png";
                 var SrcPath = OldImagePath.ToString();
-                var TrashPath = "wwwroot/trash/";
+                var TrashPath = "trash/";
                 var DestPath = TrashPath.ToString();
-                System.IO.File.Move(SrcPath, DestPath, true);
+                /* ERROR I couldn't Move it to trash */
+                //System.IO.File.Move(SrcPath, DestPath, true);
+                // So instead I will delete it
+                System.IO.File.Delete(OldImagePath);
             }
-            */
+            
 
             if (file.Length > 0 )
             {
