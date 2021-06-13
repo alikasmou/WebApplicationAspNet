@@ -201,9 +201,9 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-                        with font-awesome or any other icon font library -->
+    with font-awesome or any other icon font library -->
                         <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
+                            <a href="#" class="nav-link">
                                 <i class="nav-icon fa fa-tag"></i>
                                 <p>
                                     Brands
@@ -226,21 +226,41 @@
                                 <li class="nav-item">
                                     <a href="@Url.ActionLink("Trashed","Brands")" class="nav-link">
                                         <i class="fa fa-trash nav-icon"></i>
-                                        <p>Trash</p>
+                                        <p>Trashed Brands</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        
-                        <li class="nav-item">
+                        <li class="nav-item menu-open">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
+                                <i class="nav-icon fa fa-tag"></i>
                                 <p>
-                                    Simple Link
-                                    <span class="right badge badge-danger">New</span>
+                                    Categories
+                                    <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="@Url.ActionLink("Create","Categories")" class="nav-link">
+                                        <i class="fa fa-plus nav-icon"></i>
+                                        <p>Add New</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="@Url.ActionLink("Index","Categories")" class="nav-link">
+                                        <i class="fa fa-eye nav-icon"></i>
+                                        <p>View Categories</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="@Url.ActionLink("Trashed","Categories")" class="nav-link">
+                                        <i class="fa fa-trash nav-icon"></i>
+                                        <p>Trashed Categories</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
+
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

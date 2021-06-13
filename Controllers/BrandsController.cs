@@ -33,31 +33,8 @@ namespace ecommerce.Controllers
             _hostingEnvironment = hostingEnvironment;
         }
 
-        /*
-         *
-         *
-            // Prepare File Upload Constructor
-            private readonly IWebHostEnvironment _webHostEnvironment;
-            public BrandsController( IWebHostEnvironment webHostEnvironment)
-            {
-                _webHostEnvironment = webHostEnvironment;
-            }
-            // End of file upload constructor 
-         *
-         *
-         */
         public IActionResult Index()
         {
-            /*var ListBrands = _ApplicationDbContext.Brands.Where(x => x.IsDelete == false)
-                .Select(x=> new BrandsVm()
-                {
-                    Id = x.Id,
-                    Name = x.BrnadName,
-                    CreateDate = x.CreateDate
-
-                })
-                .ToList();
-            */
             var ListBrands = _ApplicationDbContext.Brands.Where(brands => brands.IsDelete == false);
 
             var ListBrandsVm = ListBrands.Select(brand => new BrandsVm()
@@ -96,7 +73,6 @@ namespace ecommerce.Controllers
                 // using file upload constructor
                 var Uploads = Path.Combine(_hostingEnvironment.WebRootPath, $"uploads/img/{ImgId}.png");
                 //var Uploads = Path.GetTempPath();
-                // I wanna ask teacher how to print the value to check it
                 using ( var Stream = System.IO.File.Create(Uploads))
                 {
                     await file.CopyToAsync(Stream);
@@ -115,19 +91,7 @@ namespace ecommerce.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            /*
-            var brand = _ApplicationDbContext.Brands.SingleOrDefault( brand => brand.Id == id);
 
-            OR 
-            
-            var brand = _ApplicationDbContext.Brands.FirstOrDefault(brand=> brand.Id == id);
-            
-            Notes :
-            *but if query returns more than 1 row you will get an error
-            ** in these cases function must be public IActionResult Edit()
-             * No need to async Task<>
-            
-            */
             var brandDb = await _ApplicationDbContext.Brands.FindAsync(id);
 
             var brand = new BrandsVm()
@@ -144,8 +108,6 @@ namespace ecommerce.Controllers
         public async Task<IActionResult> Edit( BrandsVm brand, IFormFile file )
         {
 
-
-            // I wanna ask teacher how to print the value to check it
             //fetching the object from database
             var brandDb = _ApplicationDbContext.Brands.SingleOrDefault(x => x.Id == brand.Id);
 
@@ -171,7 +133,7 @@ namespace ecommerce.Controllers
                 var TrashPath = "trash/";
                 var DestPath = TrashPath.ToString();
                 /* ERROR I couldn't Move it to trash */
-                //System.IO.File.Move(SrcPath, DestPath, true);
+                // System.IO.File.Move(SrcPath, DestPath, true);
                 // So instead I will delete it
                 System.IO.File.Delete(OldImagePath);
             }

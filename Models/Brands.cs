@@ -10,12 +10,6 @@ namespace ecommerce.Models
     public class Brands: BaseEntity<int>
     {
 
-        // Very Important to set the method to connect 
-        // Model with database in DbContext
-        // Dbset<Brands> Brands{get; set;}
-        // Then make add migratoin CreateBrandsTable
-        // and update database
-
         public string BrnadName { get; set; }
 
         public string Description { get; set; }

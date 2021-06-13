@@ -1,0 +1,83 @@
+﻿@using ecommerce.Vm;
+@model IQueryable<ecommerce.Vm.CategoriesVm>;
+
+@{
+    ViewData["Title"] = "Categories";
+    Layout = "~/Views/Shared/_layout.cshtml";
+
+}
+
+<div class="row mb-5 mt-5">
+    <div class="container">
+        <div class="alert alert-primary">
+            <a href="@Url.ActionLink("Create","Categories")">Create</a>
+        </div>
+
+    </div>
+</div>
+<div class="row mb-5">
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Categories Table</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table id="Categories" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Parent Category</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var Categories in Model)
+                        {
+                            var Parent = "";
+                            var Image = "";
+                            @if (string.IsNullOrEmpty(Categories.CategoryImage))
+                            {
+                                Image = "default.png";
+                            }
+                            else
+                            {
+                                Image = Categories.CategoryImage + ".png";
+                            }
+                            <tr>
+                                <th><img width="75px" height="75px" src="~/uploads/img/@Image" alt="brand.Name" class="img-circle elevation-2" /></th>
+                                <th>@Categories.Id</th>
+                                <th>@Categories.Name</th>
+                                
+                                @if (string.IsNullOrEmpty(Categories.ParentId.ToString()))
+                                {
+                                    Parent = "Main Category";
+                                }
+                                else {
+                                    // I need to present here the Parent Category name instead of the string below
+                                    Parent = "Sub of " + Categories.ParentName;
+
+
+                                }
+                                <th>@Parent</th>
+                                <th><a href="@Url.ActionLink("Edit","Categories", new { id = Categories.Id  })">Edit</a> |
+                                    <a href="@Url.ActionLink("Trash","Categories", new { id = Categories.Id  })" class="text-danger">Delete</a></th>
+                                <th>
+                                </th>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Count : [Counter]</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div>

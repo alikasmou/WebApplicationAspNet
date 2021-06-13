@@ -1,0 +1,57 @@
+﻿@using ecommerce.Vm;
+@model ecommerce.Vm.CategoriesVm;
+
+@{
+    ViewData["Title"] = "Brands";
+    Layout = "~/Views/Shared/_layout.cshtml";
+
+}
+
+<div class="row mb-5 mt-5">
+    <div class="container">
+        <div class="alert alert-primary">
+            <a href="@Url.ActionLink("Index","Categories")">Back to Brands</a>
+        </div>
+
+    </div>
+</div><div class="row mb-5 mt-5">
+    <div class="container">
+        <div class="col-md-6 offset-3">
+            <!-- general form elements -->
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">@ViewData["Title"]</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form method="post" action="@Url.ActionLink("Create","Categories")" enctype="multipart/form-data">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="ParentId">Category Parent</label>
+                            <select asp-items="@ViewBag.ListParentCategories" asp-for="ParentId" id="ParentId" class="form-control">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="CategoryName">Category Name</label>
+                            <input asp-for="Name" type="text" class="form-control" id="CategoryName" placeholder="Write Category name here" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Desscription">Category Short Description</label>
+                            <textarea asp-for="ShortDescription" class="form-control" id="Desscription" rows="3" placeholder="Write a decription..." required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="Description">Category Description</label>
+                            <textarea asp-for="Description" class="form-control" id="Description" rows="3" placeholder="Write a decription..." required></textarea>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+</div>
